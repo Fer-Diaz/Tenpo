@@ -1,0 +1,69 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: aplicacion-web
+spec:
+  selector:
+    app: aplicacion-web
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+    - name: https
+      port: 443
+      targetPort: 80
+  type: LoadBalancer
+  tls:
+  - hosts:
+    - aplicacion.com
+    secretName: aplicacion-tls
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aplicacion-web
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: aplicacion-web
+  template:
+    metadata:
+      labels:
+        app: aplicacion-web
+    spec:
+      containers:
+      - name: aplicacion-web
+        image: node:14
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: tls-certs
+          mountPath: "/etc/tls-certs"
+          readOnly: true
+      volumes:
+      - name: tls-certs
+        secret:
+          secretName: aplicacion-tls
+      autoscaling:
+        cpuUtilization:
+          targetPercentage: 50
+        maxReplicas: 10
+        minReplicas: 2
+---
+apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: aplicacion-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: aplicacion-web
+  minReplicas: 2
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      targetAverageUtilization: 50
