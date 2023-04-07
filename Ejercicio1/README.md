@@ -22,10 +22,10 @@ openssl rsa -in private-key -outform PEM -out private-key.pem
 openssl x509 -in certificado -outform PEM -out certificado.pem
 
 # Crear el secret en Kubernetes
-kubectl create secret tls aplicacion-tls --key private-key.pem --cert certificado.pem
+kubectl create secret tls aplicacion-tls --key private-key.pem --cert certificado.pem --namespace=ej1
 
 # Para aplicar este manifiesto
-kubectl apply -f application.yml
+kubectl apply -f application.yml --namespace=ej1
 
 -----------------------------------
 
