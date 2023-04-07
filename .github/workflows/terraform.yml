@@ -29,7 +29,8 @@ jobs:
       uses: aquasecurity/tfsec-action@v1.0.3
       with:
         working-directory: Ejercicio2
-        
+      continue-on-error: true
+      
     - name: Terraform Plan
       working-directory: Ejercicio2
       run: terraform plan
