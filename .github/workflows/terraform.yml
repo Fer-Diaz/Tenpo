@@ -34,20 +34,8 @@ jobs:
     - name: Terraform Plan
       working-directory: Ejercicio2
       run: terraform plan -var="admin_principal_id=${{ secrets.TF_VAR_ADMIN_PRINCIPAL_ID }}" -var="reader_principal_id=${{ secrets.TF_VAR_READER_PRINCIPAL_ID}}" -var="client_id=${{ secrets.client_id}}" -var="client_secret=${{ secrets.CLIENT_SECRET}}" -var="tenant_id=${{ secrets.ARM_TENANT_ID }}" -var="subscription_id=${{ secrets.ARM_SUBSCRIPTION_ID }}" -var="terraform_client_id=${{ secrets.ARM_CLIENT_ID }}" -var="terraform_client_secret=${{ secrets.ARM_CLIENT_SECRET }}"
-      env:
-        ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-        ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
-        ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
-        admin_principal_id: ${{ secrets.TF_VAR_ADMIN_PRINCIPAL_ID }}
-        reader_principal_id: ${{ secrets.TF_VAR_READER_PRINCIPAL_ID}}
     
     - name: Terraform Apply
       working-directory: Ejercicio2
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-      run: terraform apply -auto-approve
-      env:
-        ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-        ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
-        ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
-        admin_principal_id: ${{ secrets.TF_VAR_ADMIN_PRINCIPAL_ID }}
-        reader_principal_id: ${{ secrets.TF_VAR_READER_PRINCIPAL_ID}}
+      run: terraform apply -auto-approve -var="admin_principal_id=${{ secrets.TF_VAR_ADMIN_PRINCIPAL_ID }}" -var="reader_principal_id=${{ secrets.TF_VAR_READER_PRINCIPAL_ID}}" -var="client_id=${{ secrets.client_id}}" -var="client_secret=${{ secrets.CLIENT_SECRET}}" -var="tenant_id=${{ secrets.ARM_TENANT_ID }}" -var="subscription_id=${{ secrets.ARM_SUBSCRIPTION_ID }}" -var="terraform_client_id=${{ secrets.ARM_CLIENT_ID }}" -var="terraform_client_secret=${{ secrets.ARM_CLIENT_SECRET }}"
