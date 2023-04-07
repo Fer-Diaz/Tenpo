@@ -1,7 +1,7 @@
 # Creación del grupo de recursos
 resource "azurerm_resource_group" "rg" {
   name     = var.resource_group_name
-  location = "East US"
+  location = var.location
 }
 
 # Usuario/cuenta con acceso de lectura
