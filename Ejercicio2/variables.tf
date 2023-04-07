@@ -42,3 +42,23 @@ variable "client_secret" {
   type = string
   description = "Client secret del service principal que AKS utilizara para comunicarse con otros recursos de Azure"
 }
+
+variable "terraform_client_id" {
+  type = string
+  description = "Client Id del service principal que deploya recursos de Azure"
+}
+
+variable "terraform_client_secret" {
+  type = string
+  description = "Client Secret del service principal que deploya recursos de Azure"
+}
+
+variable "subscription_id" {
+  type = string
+  description = "Subscription de Azure"
+}
+
+variable "tenant_id" {
+  type = string
+  description = "Tenant Id de Azure"
+}
