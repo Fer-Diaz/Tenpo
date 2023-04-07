@@ -2,6 +2,9 @@ apiVersion: v1
 kind: Service
 metadata:
   name: aplicacion-web
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-ssl-cert: "aplicacion-tls"
+    service.beta.kubernetes.io/azure-load-balancer-ssl-key: "tls.key"
 spec:
   selector:
     app: aplicacion-web
@@ -13,10 +16,11 @@ spec:
       port: 443
       targetPort: 80
   type: LoadBalancer
-  tls:
-  - hosts:
-    - aplicacion.com
-    secretName: aplicacion-tls
+
+#  tls:
+#  - hosts:
+#    - aplicacion.com
+#    secretName: aplicacion-tls
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -45,11 +49,11 @@ spec:
       - name: tls-certs
         secret:
           secretName: aplicacion-tls
-      autoscaling:
-        cpuUtilization:
-          targetPercentage: 50
-        maxReplicas: 10
-        minReplicas: 2
+#      autoscaling:
+#        cpuUtilization:
+#          targetPercentage: 50
+#        maxReplicas: 10
+#        minReplicas: 2
 ---
 apiVersion: autoscaling/v2beta2
 kind: HorizontalPodAutoscaler
@@ -66,4 +70,6 @@ spec:
   - type: Resource
     resource:
       name: cpu
-      targetAverageUtilization: 50
+      target:
+        type: Utilization
+        averageUtilization: 50
