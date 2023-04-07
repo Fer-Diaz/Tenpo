@@ -33,7 +33,7 @@ jobs:
       
     - name: Terraform Plan
       working-directory: Ejercicio2
-      run: terraform plan
+      run: terraform plan -var="admin_principal_id=${{ secrets.TF_VAR_ADMIN_PRINCIPAL_ID }}" -var="reader_principal_id=${{ secrets.TF_VAR_READER_PRINCIPAL_ID}}"
       env:
         ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
         ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
