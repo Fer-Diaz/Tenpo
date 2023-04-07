@@ -38,8 +38,8 @@ jobs:
         ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
         ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
         ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
-        admin_principal_id: ${{ secret.TF_VAR_ADMIN_PRINCIPAL_ID }}
-        reader_principal_id: ${{ secret.TF_VAR_READER_PRINCIPAL_ID}}
+        admin_principal_id: ${{ secrets.TF_VAR_ADMIN_PRINCIPAL_ID }}
+        reader_principal_id: ${{ secrets.TF_VAR_READER_PRINCIPAL_ID}}
     
     - name: Terraform Apply
       working-directory: Ejercicio2
@@ -49,3 +49,5 @@ jobs:
         ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
         ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
         ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+        admin_principal_id: ${{ secrets.TF_VAR_ADMIN_PRINCIPAL_ID }}
+        reader_principal_id: ${{ secrets.TF_VAR_READER_PRINCIPAL_ID}}
