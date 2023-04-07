@@ -1,6 +1,7 @@
 # Configuración de proveedor y versión de Terraform
 provider "azurerm" {
   features {}
+  #skip_provider_registration = true
 }
 
 terraform {

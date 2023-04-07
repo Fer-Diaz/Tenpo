@@ -17,6 +17,12 @@ Escriba la definición para los siguientes recursos en la nube de su elección:
 checkov, tfsec, etc)
 
 -------------------------
+Para la variable reader_principal_id y admin_principal_id
+
+az ad user show --id <user-email-or-object-id> --query objectId -o tsv
+
+
+-------------------------
 En GitHub agregar los siguientes secretos:
 
 ARM_CLIENT_ID: El ID del app_registration de Azure para la aplicacion.

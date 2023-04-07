@@ -5,9 +5,9 @@ resource "azurerm_kubernetes_cluster" "aks" {
   resource_group_name = azurerm_resource_group.rg.name
 
   dns_prefix      = "tenpo-aks-cluster"
-  kubernetes_version = "1.20.9"
+  kubernetes_version = "1.24.10"
 
-  node_resource_group = azurerm_resource_group.rg.name
+  #node_resource_group = "${azurerm_resource_group.rg.name}-node"
 
   default_node_pool {
     name            = "default"
