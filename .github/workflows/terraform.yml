@@ -22,9 +22,11 @@ jobs:
       run: terraform init
       
     - name: Terraform Validate
+      working-directory: Ejercicio2
       run: terraform validate
       
     - name: Terraform Plan
+      working-directory: Ejercicio2
       run: terraform plan
       env:
         ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
@@ -32,6 +34,7 @@ jobs:
         ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
     
     - name: Terraform Apply
+      working-directory: Ejercicio2
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       run: terraform apply -auto-approve
       env:
